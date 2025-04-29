@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body style="text-align: center; background-image: url(bg1.webp); background-size: cover; background-repeat: no-repeat;">
+
+<h2>Reaction Time Game</h2>
+<button id="start">Start</button>
+<p id="message"></p>
+<p id="tip"></p> 
+
+<script>
+let startTime;
+
+document.getElementById("start").onclick = function() {
+
+        document.body.style.backgroundImage = "url('bg.jpg')";
+  document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+   
+       document.getElementById("message").textContent = "Wait...";
+  document.getElementById("tip").textContent = "Tip: Click when you see 'Click now!'";
+     this.disabled = true;
+
+  setTimeout(() => {
+    startTime = Date.now();
+    document.body.style.backgroundImage = "url('bg3.jpg')";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
+ 
+
+    document.getElementById("message").textContent = "Click now!";
+    
+    document.body.onclick = function() {
+      let reactionTime = Date.now() - startTime;
+         document.getElementById("message").textContent = "Reaction time: " + reactionTime + " ms";
+         document.getElementById("start").disabled = false;
+           document.body.style.backgroundImage = "url('bg1.webp')";
+      document.body.style.backgroundSize = "cover";
+        document.body.style.backgroundRepeat = "no-repeat";
+        
+
+
+         document.body.onclick = null;
+      document.getElementById("tip").textContent = "";
+    };
+  }, Math.random() * 3000 + 1000); 
+};
+</script>
+
+</body>
+</html>
