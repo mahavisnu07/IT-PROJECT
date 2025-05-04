@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<body style="text-align: center; background-image: url(bg1.jpg); background-size: cover; background-repeat: no-repeat;">
+
+<h2>Reaction Time Game</h2>
+<button id="start" style="font-size: 24px; padding: 15px 30px; border-radius: 10px;">Start</button>
+
+<!-- Circle appears between button and tip -->
+<div id="small-circle" class="small-circle"></div>
+
+<p id="tip"></p> 
+<p id="message"></p>
+
+<style>
+  .small-circle {
+    width: 60px;
+    height: 60px;
+    background-color: red;
+    border-radius: 50%;
+    display: none; /* Hides the circle by default */
+    margin: 20px auto;
+  }
+
+  #message {
+    font-weight: bold;
+    font-size: 24px;
+  
+    margin-top: 20px;
+  }
+</style>
+
+<script>
+let startTime;
+
+document.getElementById("start").onclick = function () {
+  document.body.style.backgroundImage = "url('bg.jpg')";
+  document.getElementById("message").textContent = "Wait...";
+  document.getElementById("tip").textContent = "Tip: Click when you see ~ Green color";
+  this.disabled = true;
+
+  const circle = document.getElementById("small-circle");
+  circle.style.display = "block";
+  circle.style.backgroundColor = "yellow";
+
+  setTimeout(() => {
+    startTime = Date.now();
+    document.body.style.backgroundImage = "url('bg2.jpg')";
+    document.getElementById("message").textContent = "Click now!";
+    circle.style.backgroundColor = "green";
+
+    document.body.onclick = function () {
+      let reactionTime = Date.now() - startTime;
+      document.getElementById("message").textContent = "Reaction time: " + reactionTime + " ms";
+      document.getElementById("start").disabled = false;
+      document.body.style.backgroundImage = "url('bg1.jpg')";
+      document.getElementById("tip").textContent = "";
+      circle.style.backgroundColor = "red";       
+      circle.style.display = "none";              
+      document.body.onclick = null;
+    };
+  }, Math.random() * 3000 + 1000);
+};
+</script>
+
+</body>
+</html>
